@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+"""
+Factorize a given set of numbers in a file into products of two smaller numbers.
+This script showcases my understanding of the RSA Factoring Challenge.
+"""
+
+
+from sys import argv
+
+
+def factorize(number_to_factorize):
+    """
+    Factorize a given number into two smaller numbers.
+    """
+    i = 2
+
+    if number_to_factorize < 2:
+        return
+    
+    while number_to_factorize % i:
+        i += 1
+
+    print("{:.0f} can be factorized as {:.0f} * {:.0f}".format(number_to_factorize, number_to_factorize / i, i))
+
+if len(argv) != 2:
+    print("Usage: {} <filename>".format(argv[0]))
+    exit()
+
+try:
+    with open(argv[1]) as file:
+        line = file.readline()
+
+        while line != "":
+            number_to_factorize = int(line.split('\n')[0])
+            factorize(number_to_factorize)
+            line = file.readline()
+except FileNotFoundError:
+    print("File not found. Please provide a valid filename.")
+except Exception as e:
+    print("An unexpected error occurred:", str(e))
