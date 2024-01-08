@@ -1,43 +1,5 @@
-#!/usr/bin/python3
-"""
-Factorize numbers in a file into products of two prime numbers, showcasing my understanding of RSA.
-"""
+#!/usr/bin/env bash
+# Factorize as many numbers as possible into a product of two smaller numbers.
 
-
-import sys
-
-
-def factorize_rsa():
-    """
-    Factorize a given number into two prime numbers (n = p * q).
-    """
-    try:
-        filename = sys.argv[1]
-        with open(filename) as f:
-            for line_number in f:
-                number_to_factorize = int(line_number)
-                
-                if number_to_factorize % 2 == 0:
-                    print("{} can be factorized as {} * {}".format(number_to_factorize, number_to_factorize // 2, 2))
-                    continue
-
-                # Search for two prime factors
-                i = 3
-                while i < number_to_factorize // 2:
-                    if number_to_factorize % i == 0:
-                        print("{} can be factorized as {} * {}".format(number_to_factorize, number_to_factorize // i, i))
-                        break
-                    i = i + 2
-
-                # If no factor found, it's a prime number
-                if i == (number_to_factorize // 2) + 1:
-                    print("{} is a prime number".format(number_to_factorize))
-    except IndexError:
-        print("Please provide a filename as a command-line argument.")
-    except FileNotFoundError:
-        print("File not found. Please provide a valid filename.")
-    except Exception as e:
-        print("An unexpected error occurred:", str(e))
-
-
-factorize_rsa()
+gcc factors.c -o a
+./a $1
